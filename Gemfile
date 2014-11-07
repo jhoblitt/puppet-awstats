@@ -10,3 +10,4 @@ gem 'rake',                   :require => false
 gem 'puppetlabs_spec_helper', :require => false
 gem 'puppet-lint',            :require => false
 gem 'puppet-syntax',          :require => false
+gem 'rspec',  '< 3',          :require => false
