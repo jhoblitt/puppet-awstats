@@ -3,7 +3,13 @@ require 'spec_helper'
 describe 'awstats', :type => :class do
 
   context 'for osfamily RedHat' do
-    let(:facts) {{ :osfamily => 'RedHat', :operatingsystem => 'RedHat' }}
+    let(:facts) do
+      {
+        :osfamily                  => 'RedHat',
+        :operatingsystem           => 'RedHat',
+        :operatingsystemmajrelease => 6,
+      }
+    end
 
     context 'default params' do 
       it { should contain_package('awstats') }
@@ -52,11 +58,28 @@ describe 'awstats', :type => :class do
         let(:params) {{ :config_dir_purge => 42 }}
 
         it 'should fail' do
-          expect { should }.to raise_error(Puppet::Error, /is not a boolean/)
+          expect { should compile }.to raise_error(Puppet::Error, /is not a boolean/)
         end
-
       end
     end # config_dir_purge =>
+  
+    context 'el5.x' do
+      before { facts[:operatingsystemmajrelease] = '5' }
+
+      it 'should fail' do
+          expect { should compile }.to raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 5/)
+
+      end
+    end # el5.x
+
+    context 'el7.x' do
+      before { facts[:operatingsystemmajrelease] = '7' }
+
+      it 'should fail' do
+          expect { should compile }.to raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 7/)
+
+      end
+    end # el5.x
   end # on osfamily RedHat
 
   context 'on osfamily Solaris' do

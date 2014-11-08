@@ -4,9 +4,10 @@ describe 'awstats::conf', :type => :define do
   context 'on osfamily RedHat' do
     let(:facts) do
       {
-        :osfamily => 'RedHat',
-        :fqdn     => 'foo.example.org',
-        :hostname => 'foo',
+        :osfamily                  => 'RedHat',
+        :operatingsystemmajrelease => 6,
+        :fqdn                      => 'foo.example.org',
+        :hostname                  => 'foo',
       }
     end
     let(:title) { 'foo.example.org' }
@@ -39,7 +40,7 @@ eos
         let(:params) {{ :template => 'dne.erb' }}
 
         it 'should fail' do
-          expect { should }.to raise_error(Puppet::Error, /Could not find template/)
+          expect { should compile }.to raise_error(Puppet::Error, /Could not find template/)
         end
       end # dne.erb
 
@@ -47,7 +48,7 @@ eos
         let(:params) {{ :template => [] }}
 
         it 'should fail' do
-          expect { should }.to raise_error(Puppet::Error, /is not a string/)
+          expect { should compile }.to raise_error(Puppet::Error, /is not a string/)
         end
       end # []
     end # template =>
@@ -109,7 +110,7 @@ eos
         let(:params) {{ :options => 'foo' }}
 
         it 'should fail' do
-          expect { should }.to raise_error(Puppet::Error, /is not a Hash/)
+          expect { should compile }.to raise_error(Puppet::Error, /is not a Hash/)
         end
       end # foo
     end # options =>
