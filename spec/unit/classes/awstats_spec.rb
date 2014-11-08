@@ -18,7 +18,7 @@ describe 'awstats', :type => :class do
         should contain_file('/etc/awstats').with(
           :ensure  => 'directory',
           :recurse => 'true',
-          :purge   => 'false',
+          :purge   => 'false'
         )
       end
       it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
@@ -33,7 +33,7 @@ describe 'awstats', :type => :class do
           should contain_file('/etc/awstats').with(
             :ensure  => 'directory',
             :recurse => 'true',
-            :purge   => 'true',
+            :purge   => 'true'
           )
         end
         it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
@@ -48,7 +48,7 @@ describe 'awstats', :type => :class do
           should contain_file('/etc/awstats').with(
             :ensure  => 'directory',
             :recurse => 'true',
-            :purge   => 'false',
+            :purge   => 'false'
           )
         end
         it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
