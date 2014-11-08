@@ -25,11 +25,9 @@ describe 'awstats::conf', :type => :define do
         should contain_file('/etc/awstats/awstats.foo.example.org.conf')\
           .with_content(<<-eos)
 DirData="/var/lib/awstats"
-HostAliases="foo"
+HostAliases="localhost 127.0.0.1 foo"
 LogFile="/var/log/httpd/access_log"
 LogFormat=1
-LogSeparator=" "
-LogType="W"
 SiteDomain="foo.example.org"
 eos
       end
@@ -70,11 +68,9 @@ eos
             .with_content(<<-eos)
 2="bar"
 DirData="/var/lib/awstats"
-HostAliases="foo"
+HostAliases="localhost 127.0.0.1 foo"
 LogFile="/var/log/httpd/access_log"
 LogFormat=1
-LogSeparator=" "
-LogType="W"
 SiteDomain="foo.example.org"
 foo=1
 eos
@@ -96,11 +92,9 @@ eos
           should contain_file('/etc/awstats/awstats.foo.example.org.conf')\
             .with_content(<<-eos)
 DirData=1
-HostAliases="foo"
+HostAliases="localhost 127.0.0.1 foo"
 LogFile="/var/log/httpd/access_log"
 LogFormat="bar"
-LogSeparator=" "
-LogType="W"
 SiteDomain="foo.example.org"
 eos
         end
