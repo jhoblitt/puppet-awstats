@@ -1,0 +1,7 @@
+<% @conf_options.sort.each do |k,v| -%>
+<%   if v =~ /\A[-+]?[0-9]+\z/ -%>
+<%=    "%s=%s" % [k, v] %>
+<%   else -%>
+<%=    "%s=\"%s\"" % [k, v] %>
+<%   end -%>
+<% end -%>

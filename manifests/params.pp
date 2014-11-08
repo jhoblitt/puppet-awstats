@@ -7,6 +7,7 @@ class awstats::params {
     'RedHat': {
       $package_name     = 'awstats'
       $config_dir_path  = '/etc/awstats'
+      $default_template = "${module_name}/awstats.conf.erb"
     }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")
