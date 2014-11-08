@@ -6,12 +6,15 @@
 #
 # include awstats
 #
-class awstats inherits ::awstats::params {
+class awstats(
+  $config_dir_purge = false,
+) inherits ::awstats::params {
+  validate_bool($config_dir_purge)
 
   package{ $::awstats::params::package_name: } ->
-  file { $::awstats::params::confd_dir:
+  file { $::awstats::params::config_dir_path:
     ensure  => 'directory',
     recurse => true,
-    purge   => true,
+    purge   => $config_dir_purge,
   }
 }
