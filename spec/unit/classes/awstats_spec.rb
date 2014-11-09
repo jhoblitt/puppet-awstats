@@ -77,21 +77,21 @@ describe 'awstats', :type => :class do
       context "[ 'decodeutfkeys' ]" do
         let(:params) {{ :enable_plugins => [ 'decodeutfkeys' ] }}
 
-        it { should contain_perl__module('URI').with(:use_package => true) }
+        it { should contain_package('perl-URI') }
       end
 
       context "[ 'geoip' ]" do
         let(:params) {{ :enable_plugins => [ 'geoip' ] }}
 
-        it { should contain_perl__module('Geo::IP').with(:use_package => true) }
+        it { should contain_package('perl-Geo-IP') }
       end
 
       # check case insensitivity and multiple enable_plugins
       context "[ 'DECODEUTFKEYS', 'GEOIP' ]" do
         let(:params) {{ :enable_plugins => [ 'DECODEUTFKEYS', 'GEOIP' ] }}
 
-        it { should contain_perl__module('URI').with(:use_package => true) }
-        it { should contain_perl__module('Geo::IP').with(:use_package => true) }
+        it { should contain_package('perl-URI') }
+        it { should contain_package('perl-Geo-IP') }
       end
 
       context '42' do

@@ -37,7 +37,6 @@ RSpec.configure do |c|
       end
       on host, puppet('module', 'install', 'puppetlabs-stdlib'), {:acceptable_exit_codes => [0, 1]}
       on host, puppet('module', 'install', 'stahnma-epel'), {:acceptable_exit_codes => [0, 1]}
-      on host, puppet('module', 'install', 'example42-perl'), {:acceptable_exit_codes => [0, 1]}
     end
   end
 end
