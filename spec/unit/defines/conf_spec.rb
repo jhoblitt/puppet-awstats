@@ -106,6 +106,33 @@ eos
         end
       end # <add new keys>
 
+      context '<key value is array>' do
+        let(:params) {{ :options => { 'LoadPlugin' => ['foo', 'bar'] } }}
+
+        it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
+
+        it do
+          should contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
+            :ensure => 'file',
+            :owner  => 'root',
+            :group  => 'root',
+            :mode   => '0644'
+          )
+        end
+        it do
+          should contain_file('/etc/awstats/awstats.foo.example.org.conf')\
+            .with_content(<<-eos)
+DirData="/var/lib/awstats"
+HostAliases="localhost 127.0.0.1 foo"
+LoadPlugin="bar"
+LoadPlugin="foo"
+LogFile="/var/log/httpd/access_log"
+LogFormat=1
+SiteDomain="foo.example.org"
+eos
+        end
+      end # <key value is array>
+
       context 'foo' do
         let(:params) {{ :options => 'foo' }}
 
