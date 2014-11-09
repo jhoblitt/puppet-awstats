@@ -1,6 +1,9 @@
 require 'spec_helper_acceptance'
 
 describe 'awstats class' do
+  fqdn = fact 'fqdn'
+  hostname = fact 'hostname'
+
   describe 'running puppet code' do
     pp = <<-EOS
       if $::osfamily == 'RedHat' {
@@ -9,12 +12,19 @@ describe 'awstats class' do
 
       class { '::awstats':
         config_dir_purge => true,
-        enable_plugins   => [ 'DecodeUTFKeys', 'GeoIP', 'HostInfo' ],
+        enable_plugins   => [ 'DecodeUTFKeys', 'GeoIP' ],
 
       }
 
-      ::awstats::conf { 'defaults.example.org':
-        config_dir_purge => true,
+      ::awstats::conf { 'defaults.example.org': }
+
+      ::awstats::conf { 'tweaked.example.org':
+        options => {
+          'AllowFullYearView' => 2,
+          'DNSLookup'         => 1,
+          'LoadPlugin'        => ['decodeutfkeys', 'geoip'],
+          'SiteDomain'        => 'tweaked.example.org',
+        },
       }
     EOS
 
@@ -43,17 +53,37 @@ describe 'awstats class' do
   end
 
   describe file('/etc/awstats/awstats.defaults.example.org.conf') do
-    it { should be_directory }
+    it { should be_file }
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 644 }
     its(:content) do
       should match <<-eos
 DirData="/var/lib/awstats"
-HostAliases="localhost 127.0.0.1 foo"
+HostAliases="localhost 127.0.0.1 #{hostname}"
 LogFile="/var/log/httpd/access_log"
 LogFormat=1
-SiteDomain="foo.example.org"
+SiteDomain="#{fqdn}"
+      eos
+    end
+  end
+
+  describe file('/etc/awstats/awstats.tweaked.example.org.conf') do
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+    it { should be_mode 644 }
+    its(:content) do
+      should match <<-eos
+AllowFullYearView=2
+DNSLookup=1
+DirData="/var/lib/awstats"
+HostAliases="localhost 127.0.0.1 #{hostname}"
+LoadPlugin="decodeutfkeys"
+LoadPlugin="geoip"
+LogFile="/var/log/httpd/access_log"
+LogFormat=1
+SiteDomain="tweaked.example.org"
       eos
     end
   end
