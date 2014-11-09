@@ -13,6 +13,8 @@ describe 'awstats::conf', :type => :define do
     let(:title) { 'foo.example.org' }
 
     context 'default params' do
+      it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
+
       it do
         should contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
           :ensure => 'file',
@@ -55,6 +57,8 @@ eos
       context '<add new keys>' do
         let(:params) {{ :options => { 'foo' => 1, 2 => 'bar' } }}
 
+        it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
+
         it do
           should contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
             :ensure => 'file',
@@ -79,6 +83,8 @@ eos
 
       context '<replace existing keys>' do
         let(:params) {{ :options => { 'DirData' => 1, 'LogFormat' => 'bar' } }}
+
+        it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
 
         it do
           should contain_file('/etc/awstats/awstats.foo.example.org.conf').with(

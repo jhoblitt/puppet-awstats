@@ -8,6 +8,7 @@ define awstats::conf(
   validate_hash($options)
 
   include ::awstats::params
+  require ::awstats
 
   $real_template = $template ? {
     undef   => $::awstats::params::default_template,
