@@ -1,11 +1,5 @@
 # == Class: awstats
 #
-# simple template
-#
-# === Examples
-#
-# include awstats
-#
 class awstats(
   $config_dir_purge = false,
   $enable_plugins   = [],

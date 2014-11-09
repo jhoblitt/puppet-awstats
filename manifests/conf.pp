@@ -1,4 +1,4 @@
-# == Class: awstats::conf
+# == Define: awstats::conf
 #
 define awstats::conf(
   $template = undef,
