@@ -16,6 +16,9 @@ class awstats(
   package{ $::awstats::params::package_name: } ->
   file { $::awstats::params::config_dir_path:
     ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
     recurse => true,
     purge   => $config_dir_purge,
   }

@@ -17,6 +17,9 @@ describe 'awstats', :type => :class do
       it do
         should contain_file('/etc/awstats').with(
           :ensure  => 'directory',
+          :owner   => 'root',
+          :group   => 'root',
+          :mode    => '0755',
           :recurse => true,
           :purge   => false
         )
@@ -33,6 +36,9 @@ describe 'awstats', :type => :class do
         it do
           should contain_file('/etc/awstats').with(
             :ensure  => 'directory',
+            :owner   => 'root',
+            :group   => 'root',
+            :mode    => '0755',
             :recurse => true,
             :purge   => true
           )
@@ -48,6 +54,9 @@ describe 'awstats', :type => :class do
         it do
           should contain_file('/etc/awstats').with(
             :ensure  => 'directory',
+            :owner   => 'root',
+            :group   => 'root',
+            :mode    => '0755',
             :recurse => true,
             :purge   => false
           )
