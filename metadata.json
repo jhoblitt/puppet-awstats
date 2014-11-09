@@ -11,13 +11,10 @@
     { "operatingsystem": "RedHat", "operatingsystemrelease": [ "5", "6", "7" ] },
     { "operatingsystem": "CentOS", "operatingsystemrelease": [ "5", "6", "7" ] },
     { "operatingsystem": "OracleLinux", "operatingsystemrelease": [ "5", "6", "7" ] },
-    { "operatingsystem": "Scientific", "operatingsystemrelease": [ "5", "6", "7" ] },
-    { "operatingsystem": "SLES", "operatingsystemrelease": [ "10 SP4", "11 SP1", "12" ] },
-    { "operatingsystem": "Debian", "operatingsystemrelease": [ "6", "7" ] },
-    { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "10.04", "12.04", "14.04" ] }
+    { "operatingsystem": "Scientific", "operatingsystemrelease": [ "5", "6", "7" ] }
   ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.2.0 < 5.0.0" }
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.2.0 < 5.0.0" },
     { "name": "example42/perl", "version_requirement": ">= 2.0.0 < 3.0.0" }
   ]
 }
