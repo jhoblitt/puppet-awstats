@@ -86,19 +86,12 @@ describe 'awstats', :type => :class do
         it { should contain_perl__module('Geo::IP').with(:use_package => true) }
       end
 
-      context "[ 'hostinfo' ]" do
-        let(:params) {{ :enable_plugins => [ 'hostinfo' ] }}
-
-        it { should contain_perl__module('Net::XWhois').with(:use_package => false) }
-      end
-
       # check case insensitivity and multiple enable_plugins
-      context "[ 'DECODEUTFKEYS', 'GEOIP', 'HOSTINFO' ]" do
-        let(:params) {{ :enable_plugins => [ 'DECODEUTFKEYS', 'GEOIP', 'HOSTINFO' ] }}
+      context "[ 'DECODEUTFKEYS', 'GEOIP' ]" do
+        let(:params) {{ :enable_plugins => [ 'DECODEUTFKEYS', 'GEOIP' ] }}
 
         it { should contain_perl__module('URI').with(:use_package => true) }
         it { should contain_perl__module('Geo::IP').with(:use_package => true) }
-        it { should contain_perl__module('Net::XWhois').with(:use_package => false) }
       end
 
       context '42' do
