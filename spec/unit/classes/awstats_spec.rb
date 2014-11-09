@@ -17,12 +17,13 @@ describe 'awstats', :type => :class do
       it do
         should contain_file('/etc/awstats').with(
           :ensure  => 'directory',
-          :recurse => 'true',
-          :purge   => 'false'
+          :recurse => true,
+          :purge   => false
         )
       end
       it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
     end # default params
+
     context 'config_dir_purge =>' do 
       context 'true' do
         let(:params) {{ :config_dir_purge => true }}
@@ -32,8 +33,8 @@ describe 'awstats', :type => :class do
         it do
           should contain_file('/etc/awstats').with(
             :ensure  => 'directory',
-            :recurse => 'true',
-            :purge   => 'true'
+            :recurse => true,
+            :purge   => true
           )
         end
         it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
@@ -47,8 +48,8 @@ describe 'awstats', :type => :class do
         it do
           should contain_file('/etc/awstats').with(
             :ensure  => 'directory',
-            :recurse => 'true',
-            :purge   => 'false'
+            :recurse => true,
+            :purge   => false
           )
         end
         it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
@@ -62,6 +63,43 @@ describe 'awstats', :type => :class do
         end
       end
     end # config_dir_purge =>
+
+    context 'enable_plugins =>' do
+      context "[ 'decodeutfkeys' ]" do
+        let(:params) {{ :enable_plugins => [ 'decodeutfkeys' ] }}
+
+        it { should contain_perl__module('URI').with(:use_package => true) }
+      end
+
+      context "[ 'geoip' ]" do
+        let(:params) {{ :enable_plugins => [ 'geoip' ] }}
+
+        it { should contain_perl__module('Geo::IP').with(:use_package => true) }
+      end
+
+      context "[ 'hostinfo' ]" do
+        let(:params) {{ :enable_plugins => [ 'hostinfo' ] }}
+
+        it { should contain_perl__module('Net::XWhois').with(:use_package => false) }
+      end
+
+      # check case insensitivity and multiple enable_plugins
+      context "[ 'DECODEUTFKEYS', 'GEOIP', 'HOSTINFO' ]" do
+        let(:params) {{ :enable_plugins => [ 'DECODEUTFKEYS', 'GEOIP', 'HOSTINFO' ] }}
+
+        it { should contain_perl__module('URI').with(:use_package => true) }
+        it { should contain_perl__module('Geo::IP').with(:use_package => true) }
+        it { should contain_perl__module('Net::XWhois').with(:use_package => false) }
+      end
+
+      context '42' do
+        let(:params) {{ :enable_plugins => 42 }}
+
+        it 'should fail' do
+          expect { should compile }.to raise_error(Puppet::Error, /is not an Array/)
+        end
+      end
+    end # enable_plugins =>
   
     context 'el5.x' do
       before { facts[:operatingsystemmajrelease] = '5' }

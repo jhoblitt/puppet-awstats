@@ -3,5 +3,7 @@ fixtures:
     stdlib:
       repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
       ref:  '4.2.0'
+    perl: 'https://github.com/example42/puppet-perl.git'
+    puppi: 'https://github.com/example42/puppi.git'
   symlinks:
     awstats: "#{source_dir}"
