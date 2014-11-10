@@ -10,15 +10,44 @@ describe 'awstats class' do
         class { '::epel': } -> Class['::awstats']
       }
 
+      include ::apache
+
+      apache::vhost { 'awstats.example.org':
+        port          => '80',
+        docroot       => '/usr/share/awstats/wwwroot',
+        serveraliases => ['awstats'],
+        aliases => [
+          { alias => '/awstatsclasses', path => '/usr/share/awstats/wwwroot/classes/' },
+          { alias => '/awstatscss', path => '/usr/share/awstats/wwwroot/css/' },
+          { alias => '/awstatsicons', path => '/usr/share/awstats/wwwroot/icon/' },
+        ],
+        scriptaliases => [
+          { alias => '/awstats/', path => '/usr/share/awstats/wwwroot/cgi-bin/' },
+        ],
+        directories   => [{
+          path     => '/usr/share/awstats/wwwroot',
+          provider => 'directory',
+          options  => 'None',
+          order    => 'Allow,Deny',
+          allow    => 'from all',
+          #deny    => 'from all',
+        }],
+        setenv        => ['PERL5LIB /usr/share/awstats/lib:/usr/share/awstats/plugins'],
+      }
+
       class { '::awstats':
         config_dir_purge => true,
         enable_plugins   => [ 'DecodeUTFKeys', 'GeoIP' ],
-
       }
 
-      ::awstats::conf { 'defaults.example.org': }
+      # this ordering is needed for both the docroot path and so that the
+      # awstats package provided apache configuration snippet is purged on the
+      # first run
+      Class['::awstats'] -> Class['::apache']
 
-      ::awstats::conf { 'tweaked.example.org':
+      awstats::conf { 'defaults.example.org': }
+
+      awstats::conf { 'tweaked.example.org':
         options => {
           'AllowFullYearView' => 2,
           'DNSLookup'         => 1,
