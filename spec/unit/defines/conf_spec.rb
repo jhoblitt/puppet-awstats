@@ -40,7 +40,7 @@ eos
         let(:params) {{ :template => 'dne.erb' }}
 
         it 'should fail' do
-          expect { should compile }.to raise_error(Puppet::Error, /Could not find template/)
+          should raise_error(Puppet::Error, /Could not find template/)
         end
       end # dne.erb
 
@@ -48,7 +48,7 @@ eos
         let(:params) {{ :template => [] }}
 
         it 'should fail' do
-          expect { should compile }.to raise_error(Puppet::Error, /is not a string/)
+          should raise_error(Puppet::Error, /is not a string/)
         end
       end # []
     end # template =>
@@ -137,7 +137,7 @@ eos
         let(:params) {{ :options => 'foo' }}
 
         it 'should fail' do
-          expect { should compile }.to raise_error(Puppet::Error, /is not a Hash/)
+          should raise_error(Puppet::Error, /is not a Hash/)
         end
       end # foo
     end # options =>

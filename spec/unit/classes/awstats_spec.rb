@@ -68,7 +68,7 @@ describe 'awstats', :type => :class do
         let(:params) {{ :config_dir_purge => 42 }}
 
         it 'should fail' do
-          expect { should compile }.to raise_error(Puppet::Error, /is not a boolean/)
+          should raise_error(Puppet::Error, /is not a boolean/)
         end
       end
     end # config_dir_purge =>
@@ -98,7 +98,7 @@ describe 'awstats', :type => :class do
         let(:params) {{ :enable_plugins => 42 }}
 
         it 'should fail' do
-          expect { should compile }.to raise_error(Puppet::Error, /is not an Array/)
+          should raise_error(Puppet::Error, /is not an Array/)
         end
       end
     end # enable_plugins =>
@@ -107,8 +107,7 @@ describe 'awstats', :type => :class do
       before { facts[:operatingsystemmajrelease] = '5' }
 
       it 'should fail' do
-          expect { should compile }.to raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 5/)
-
+        should raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 5/)
       end
     end # el5.x
 
@@ -116,8 +115,7 @@ describe 'awstats', :type => :class do
       before { facts[:operatingsystemmajrelease] = '7' }
 
       it 'should fail' do
-          expect { should compile }.to raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 7/)
-
+        should raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 7/)
       end
     end # el5.x
   end # on osfamily RedHat
@@ -126,7 +124,7 @@ describe 'awstats', :type => :class do
     let(:facts) {{ :osfamily => 'Solaris', :operatingsystem => 'Solaris' }}
 
     it 'should fail' do
-      expect { should compile }.to raise_error Puppet::Error, /not supported on Solaris/
+      should raise_error Puppet::Error, /not supported on Solaris/
     end
   end # on osfamily Solaris
 end
