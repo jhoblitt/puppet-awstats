@@ -111,7 +111,7 @@ awstats::conf { 'www.example.org':
 }
 ```
 
-#### Local 'apache' log
+#### Local `apache` log
 
 Defaults to processing `/var/log/httpd/access_log`.
 
