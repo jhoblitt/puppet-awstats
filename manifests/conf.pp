@@ -25,8 +25,9 @@ define awstats::conf(
   # if DirData is not set, data will get dumped in the cgi-bin dir.  eg
   # /usr/share/awstats/wwwroot/cgi-bin/<foo>.txt
   #
-  # if HostAliases is not set, a warning is generated. eg.
-  # Warning: HostAliases parameter is not defined, awstats choose "<fqdn> localhost 127.0.0.1"
+  # if HostAliases is not set, a warning is generated. eg.  Warning:
+  # HostAliases parameter is not defined, awstats choose "<fqdn> localhost
+  # 127.0.0.1"
   #
   # despite what the docs at http://awstats.org/docs/awstats_config.html say,
   # all other configuration directives appear to be optional
