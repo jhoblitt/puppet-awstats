@@ -12,7 +12,7 @@ class awstats::params {
           $default_template = "${module_name}/awstats.conf.erb"
         }
         default: {
-          fail("Module ${module_name} is not supported on operatingsystemmajrelease ${::operatingsystemmajrelease}")
+          fail("Module ${module_name} is not supported on operatingsystemmajrelease ${::operatingsystemmajrelease}") # lint:ignore:80chars
         }
       }
     }
