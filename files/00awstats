@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ -f /var/log/httpd/access_log ] ; then
+    exec /usr/bin/awstats_updateall.pl now         -confdir="/etc"         -awstatsprog="/var/www/awstats/awstats.pl" >/dev/null
+fi
+exit 0

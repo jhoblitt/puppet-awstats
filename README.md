@@ -202,6 +202,7 @@ awstats::conf { 'ftp.example.org':
 class { '::awstats':
   config_dir_purge => false,
   enable_plugins   => [],
+  cron_purge       => false,
 }
 ```
 
@@ -221,6 +222,14 @@ installing required dependencies. The supported plugins are:
 
 * decodeutfkeys
 * geoip
+
+#### `cron_purge`
+
+`Boolean` Default to: `false`
+
+If set to `true`, the /etc/cron.hourly/00awstats file will be purged.
+This is useful if you are using logrotate.d and are triggering awstats with
+a prerotate command and don’t want cron to step on logrotate’s toes.
 
 ### Defines
 

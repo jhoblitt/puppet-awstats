@@ -6,6 +6,13 @@ else
   gem 'puppet', :require => false
 end
 
+if RUBY_VERSION <= '1.8.7'
+  gem 'i18n', '~> 0.6.11', :require => false
+  gem 'mime-types', '~> 1.25.1', :require => false
+  gem 'activesupport', '~> 3.2.21', :require => false
+  gem 'nokogiri', '~> 1.5.10', :require => false
+end
+
 gem 'rake',                    :require => false
 gem 'puppetlabs_spec_helper',  :require => false
 gem 'puppet-lint', '>= 1.1.0', :require => false
