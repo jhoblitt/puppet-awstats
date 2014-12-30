@@ -102,7 +102,39 @@ describe 'awstats', :type => :class do
         end
       end
     end # enable_plugins =>
-  
+
+    context 'cron_purge =>' do
+      context 'true' do
+        let(:params) {{ :cron_purge => true }}
+
+        it { should contain_package('awstats') }
+
+        it do
+          should_not contain_file('/etc/cron.hourly/00awstats').with(
+            :ensure => 'absent'
+          )
+        end
+      end
+      context 'false' do
+        let(:params) {{ :cron_purge => false }}
+
+        it { should contain_package('awstats') }
+
+        it do
+          should contain_file('/etc/cron.hourly/00awstats').with(
+            :ensure => 'file'
+          )
+        end
+      end
+      context '42' do
+        let(:params) {{ :cron_purge => 42 }}
+
+        it 'should fail' do
+          should raise_error(Puppet::Error, /is not a boolean/)
+        end
+      end
+    end
+
     context 'el5.x' do
       before { facts[:operatingsystemmajrelease] = '5' }
 
