@@ -21,7 +21,7 @@ define awstats::conf(
   # * LogFile
   # * LogFormat
   # * SiteDomain
-  # 
+  #
   # if DirData is not set, data will get dumped in the cgi-bin dir.  eg
   # /usr/share/awstats/wwwroot/cgi-bin/<foo>.txt
   #

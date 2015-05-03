@@ -11,7 +11,7 @@ describe 'awstats', :type => :class do
       }
     end
 
-    context 'default params' do 
+    context 'default params' do
       it { should contain_package('awstats') }
 
       it do
@@ -27,7 +27,7 @@ describe 'awstats', :type => :class do
       it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
     end # default params
 
-    context 'config_dir_purge =>' do 
+    context 'config_dir_purge =>' do
       context 'true' do
         let(:params) {{ :config_dir_purge => true }}
 
@@ -102,7 +102,7 @@ describe 'awstats', :type => :class do
         end
       end
     end # enable_plugins =>
-  
+
     context 'el5.x' do
       before { facts[:operatingsystemmajrelease] = '5' }
 
