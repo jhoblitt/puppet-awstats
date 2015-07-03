@@ -55,7 +55,7 @@ eos
 
     context 'options =>' do
       context '<add new keys>' do
-        let(:params) {{ :options => { 'foo' => 1, 2 => 'bar' } }}
+        let(:params) {{ :options => { 'foo' => 1, '2' => 'bar' } }}
 
         it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
 
