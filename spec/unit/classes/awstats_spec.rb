@@ -7,7 +7,7 @@ describe 'awstats', :type => :class do
       {
         :osfamily                  => 'RedHat',
         :operatingsystem           => 'RedHat',
-        :operatingsystemmajrelease => 6,
+        :operatingsystemmajrelease => '6',
       }
     end
 
