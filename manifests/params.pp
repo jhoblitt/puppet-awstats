@@ -6,7 +6,7 @@ class awstats::params {
   case $::osfamily {
     'RedHat': {
       case $::operatingsystemmajrelease {
-        '6' {
+        '6', '7': {
           $package_name     = 'awstats'
           $config_dir_path  = '/etc/awstats'
           $default_template = "${module_name}/awstats.conf.erb"
