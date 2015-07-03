@@ -5,7 +5,7 @@ describe 'awstats::conf', :type => :define do
     let(:facts) do
       {
         :osfamily                  => 'RedHat',
-        :operatingsystemmajrelease => 6,
+        :operatingsystemmajrelease => '6',
         :fqdn                      => 'foo.example.org',
         :hostname                  => 'foo',
       }

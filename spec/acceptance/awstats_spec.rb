@@ -28,9 +28,6 @@ describe 'awstats class' do
           path     => '/usr/share/awstats/wwwroot',
           provider => 'directory',
           options  => 'None',
-          order    => 'Allow,Deny',
-          allow    => 'from all',
-          #deny    => 'from all',
         }],
         setenv        => ['PERL5LIB /usr/share/awstats/lib:/usr/share/awstats/plugins'],
       }

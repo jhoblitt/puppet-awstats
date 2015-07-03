@@ -290,6 +290,7 @@ but may be revised in a future version of this module.
 ### Tested Platforms
 
 * el6
+* el7
 
 
 Versioning

@@ -7,7 +7,7 @@ describe 'awstats', :type => :class do
       {
         :osfamily                  => 'RedHat',
         :operatingsystem           => 'RedHat',
-        :operatingsystemmajrelease => 6,
+        :operatingsystemmajrelease => '6',
       }
     end
 
@@ -78,12 +78,20 @@ describe 'awstats', :type => :class do
         let(:params) {{ :enable_plugins => [ 'decodeutfkeys' ] }}
 
         it { should contain_package('perl-URI') }
+        it do
+          should contain_class('awstats::plugin::decodeutfkeys').
+            that_comes_before('Anchor[awstats::end]')
+        end
       end
 
       context "[ 'geoip' ]" do
         let(:params) {{ :enable_plugins => [ 'geoip' ] }}
 
         it { should contain_package('perl-Geo-IP') }
+        it do
+          should contain_class('awstats::plugin::geoip').
+            that_comes_before('Anchor[awstats::end]')
+        end
       end
 
       # check case insensitivity and multiple enable_plugins
@@ -111,11 +119,11 @@ describe 'awstats', :type => :class do
       end
     end # el5.x
 
-    context 'el7.x' do
-      before { facts[:operatingsystemmajrelease] = '7' }
+    context 'el8.x' do
+      before { facts[:operatingsystemmajrelease] = '8' }
 
       it 'should fail' do
-        should raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 7/)
+        should raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 8/)
       end
     end # el5.x
   end # on osfamily RedHat
