@@ -10,5 +10,9 @@ class awstats::plugin::decodeutfkeys {
   # the Encode lib is bundled with core perl on el6
   # the epel6 awstats package has a dep on perl-URI so this class is
   # essentially a no-op
-  ensure_packages('perl-URI')
+  $package_name = $::osfamily ? {
+    'Debian' => 'liburi-perl',
+    'RedHat' => 'perl-URI',
+  }
+  ensure_packages($package_name)
 }
