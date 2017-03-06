@@ -19,6 +19,7 @@ group :development, :test do
   gem 'rspec-puppet', '~> 2.2',   :require => false
   gem 'rspec-puppet-facts',       :require => false
   gem 'metadata-json-lint',       :require => false
+  gem 'syck',                     :require => false if RUBY_VERSION >= '2.0.0'
 end
 
 group :beaker do
