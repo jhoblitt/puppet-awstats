@@ -7,8 +7,8 @@ class awstats(
   validate_bool($config_dir_purge)
   validate_array($enable_plugins)
 
-  package{ $::awstats::params::package_name: } ->
-  file { $::awstats::params::config_dir_path:
+  package{ $::awstats::params::package_name: }
+  -> file { $::awstats::params::config_dir_path:
     ensure  => 'directory',
     owner   => 'root',
     group   => 'root',
@@ -21,8 +21,8 @@ class awstats(
     $load = prefix(downcase($enable_plugins), '::awstats::plugin::')
     include $load
 
-    anchor { 'awstats::begin': } ->
-      Class[$load] ->
-        anchor { 'awstats::end': }
+    anchor { 'awstats::begin': }
+    -> Class[$load]
+    -> anchor { 'awstats::end': }
   }
 }
