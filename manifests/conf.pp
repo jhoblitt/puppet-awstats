@@ -44,8 +44,8 @@ define awstats::conf(
 
   file { "${::awstats::params::config_dir_path}/awstats.${title}.conf":
     ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
+    owner   => $::awstats::owner,
+    group   => $::awstats::group,
     mode    => '0644',
     content => template($real_template),
   }
