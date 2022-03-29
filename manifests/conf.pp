@@ -1,12 +1,9 @@
 # == Define: awstats::conf
 #
 define awstats::conf(
-  $template = undef,
-  $options  = {},
+  Optional[String] $template = undef,
+  Hash $options              = {},
 ) {
-  validate_string($template)
-  validate_hash($options)
-
   include ::awstats::params
   require ::awstats
 
