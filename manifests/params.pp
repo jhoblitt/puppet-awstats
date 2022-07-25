@@ -13,7 +13,7 @@ class awstats::params {
     }
     'RedHat': {
       case fact('os.release.major') {
-        '6', '7': {
+        '6', '7', '8': {
           $package_name     = 'awstats'
           $config_dir_path  = '/etc/awstats'
           $default_template = "${module_name}/awstats.conf.erb"
