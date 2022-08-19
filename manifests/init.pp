@@ -1,6 +1,18 @@
 #
 # @summary Install and configure awstats
 #
+# @param owner
+#   awstats role user.
+#
+# @param group
+#   awstats role group.
+#
+# @param config_dir_path
+#   Path of the awstats configuration directory.
+#
+# @param packages
+#   List of packages to install.
+#
 # @param config_dir_purge
 #   Default to: `false`
 #
@@ -16,20 +28,20 @@
 #   * decodeutfkeys
 #   * geoip
 #
-# @param owner
-#   awstats user
-#
-# @param group
-#   awstats group
-#
 class awstats (
-  Boolean $config_dir_purge     = false,
-  Array[String] $enable_plugins = [],
-  String $owner                 = $awstats::params::owner,
-  String $group                 = $awstats::params::group,
-) inherits awstats::params {
-  package { $awstats::params::package_name: }
-  -> file { $awstats::params::config_dir_path:
+  String $owner,
+  String $group,
+  Stdlib::Absolutepath $config_dir_path,
+  Optional[Array[String[1]]] $packages = undef,
+  Boolean $config_dir_purge            = false,
+  Array[String] $enable_plugins        = [],
+) {
+  unless ($packages) {
+    fail("Module ${module_name} is not supported on ${fact('os.family')}")
+  }
+
+  package { $packages: }
+  -> file { $config_dir_path:
     ensure  => 'directory',
     owner   => $owner,
     group   => $group,

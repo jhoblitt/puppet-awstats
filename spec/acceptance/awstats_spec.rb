@@ -7,12 +7,32 @@ describe 'awstats class' do
 
   include_examples 'the example', 'awstats.pp'
 
-  %w[
-    awstats
-    perl-Geo-IP
-    perl-URI
-  ].each do |package_name|
-    describe package(package_name) do
+  packages = case fact('os.family')
+             when 'RedHat'
+               case fact('os.release.major')
+               when '9'
+                 %w[
+                   awstats
+                   perl-GeoIP2
+                   perl-URI
+                 ]
+               else
+                 %w[
+                   awstats
+                   perl-Geo-IP
+                   perl-URI
+                 ]
+               end
+             when 'Debian'
+               %w[
+                 awstats
+                 libgeo-ip-perl
+                 liburi-perl
+               ]
+             end
+
+  packages.each do |p|
+    describe package(p) do
       it { is_expected.to be_installed }
     end
   end

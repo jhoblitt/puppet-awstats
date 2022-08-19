@@ -2,6 +2,29 @@
 
 require 'spec_helper'
 
+shared_examples 'geoip package' do |facts|
+  case facts[:os]['family']
+  when 'Debian'
+    it { is_expected.to contain_package('libgeo-ip-perl') }
+  when 'RedHat'
+    case facts[:os]['release']['major']
+    when '9'
+      it { is_expected.to contain_package('perl-GeoIP2') }
+    else
+      it { is_expected.to contain_package('perl-Geo-IP') }
+    end
+  end
+end
+
+shared_examples 'decodecutfkeys package' do |facts|
+  case facts[:os]['family']
+  when 'Debian'
+    it { is_expected.to contain_package('liburi-perl') }
+  when 'RedHat'
+    it { is_expected.to contain_package('perl-URI') }
+  end
+end
+
 describe 'awstats', type: :class do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
@@ -70,63 +93,29 @@ describe 'awstats', type: :class do
         context "[ 'decodeutfkeys' ]" do
           let(:params) { { enable_plugins: ['decodeutfkeys'] } }
 
-          case facts[:osfamily]
-          when 'Debian'
-            it { is_expected.to contain_package('liburi-perl') }
-          when 'RedHat'
-            it { is_expected.to contain_package('perl-URI') }
-          end
+          include_examples 'decodecutfkeys package', facts
 
-          it do
-            is_expected.to contain_class('awstats::plugin::decodeutfkeys')
-          end
+          it { is_expected.to contain_class('awstats::plugin::decodeutfkeys') }
         end
 
         context "[ 'geoip' ]" do
           let(:params) { { enable_plugins: ['geoip'] } }
 
-          case facts[:osfamily]
-          when 'Debian'
-            it { is_expected.to contain_package('libgeo-ip-perl') }
-          when 'RedHat'
-            it { is_expected.to contain_package('perl-Geo-IP') }
-          end
+          include_examples 'geoip package', facts
 
-          it do
-            is_expected.to contain_class('awstats::plugin::geoip')
-          end
+          it { is_expected.to contain_class('awstats::plugin::geoip') }
         end
 
         # check case insensitivity and multiple enable_plugins
         context "[ 'DECODEUTFKEYS', 'GEOIP' ]" do
           let(:params) { { enable_plugins: %w[DECODEUTFKEYS GEOIP] } }
 
-          case facts[:osfamily]
-          when 'Debian'
-            it { is_expected.to contain_package('liburi-perl') }
-            it { is_expected.to contain_package('libgeo-ip-perl') }
-          when 'RedHat'
-            it { is_expected.to contain_package('perl-URI') }
-            it { is_expected.to contain_package('perl-Geo-IP') }
-          end
+          include_examples 'geoip package', facts
+          include_examples 'decodecutfkeys package', facts
+
+          it { is_expected.to contain_class('awstats::plugin::decodeutfkeys') }
+          it { is_expected.to contain_class('awstats::plugin::geoip') }
         end
-      end
-    end
-
-    context 'el5.x' do
-      let(:facts) do
-        {
-          os: {
-            'family' => 'RedHat',
-            'release' => {
-              'major' => '5',
-            },
-          },
-        }
-      end
-
-      it 'fails' do
-        is_expected.to raise_error(Puppet::Error, %r{not supported on operatingsystemmajrelease 5})
       end
     end
   end

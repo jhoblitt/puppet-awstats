@@ -57,11 +57,10 @@ define awstats::conf (
   Optional[String] $template = undef,
   Hash $options              = {},
 ) {
-  include awstats::params
   require awstats
 
   $real_template = $template ? {
-    undef   => $awstats::params::default_template,
+    undef   => "${module_name}/awstats.conf.erb",
     default => $template,
   }
 
@@ -92,7 +91,7 @@ define awstats::conf (
 
   $conf_options = merge($default_options, $options)
 
-  file { "${awstats::params::config_dir_path}/awstats.${title}.conf":
+  file { "${awstats::config_dir_path}/awstats.${title}.conf":
     ensure  => 'file',
     owner   => $awstats::owner,
     group   => $awstats::group,

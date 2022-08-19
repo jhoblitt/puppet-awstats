@@ -1,0 +1,4 @@
+---
+awstats::packages: ['awstats']
+awstats::plugin::decodeutfkeys::packages: ['perl-URI']
+awstats::plugin::geoip::packages: ['perl-Geo-IP']

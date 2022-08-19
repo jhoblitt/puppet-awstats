@@ -1,0 +1,4 @@
+---
+awstats::packages: ['awstats']
+awstats::group: 'wheel'
+awstats::config_dir_path: "/usr/local/etc/awstats"

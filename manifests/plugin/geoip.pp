@@ -1,12 +1,9 @@
 #
 # @api private
 #
-class awstats::plugin::geoip {
+class awstats::plugin::geoip (
+  Array[String[1]] $packages,
+) {
   assert_private()
-
-  $package_name = fact('os.family') ? {
-    'Debian' => 'libgeo-ip-perl',
-    'RedHat' => 'perl-Geo-IP',
-  }
-  ensure_packages($package_name)
+  ensure_packages($packages)
 }
