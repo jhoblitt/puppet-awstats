@@ -65,14 +65,6 @@ describe 'awstats', type: :class do
 
             it { is_expected.to contain_file('/etc/awstats').that_requires('Package[awstats]') }
           end
-
-          context '42' do
-            let(:params) { { config_dir_purge: 42 } }
-
-            it 'fails' do
-              is_expected.to raise_error(Puppet::Error, %r{is not a boolean})
-            end
-          end
         end
 
         context 'enable_plugins =>' do
@@ -119,14 +111,6 @@ describe 'awstats', type: :class do
               it { is_expected.to contain_package('perl-Geo-IP') }
             end
           end
-
-          context '42' do
-            let(:params) { { enable_plugins: 42 } }
-
-            it 'fails' do
-              is_expected.to raise_error(Puppet::Error, %r{is not an Array})
-            end
-          end
         end
       end
     end
@@ -140,8 +124,8 @@ describe 'awstats', type: :class do
         }
       end
 
-      it 'should fail' do
-        should raise_error(Puppet::Error)
+      it 'fails' do
+        is_expected.to raise_error(Puppet::Error)
       end
     end
   end
