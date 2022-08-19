@@ -1,4 +1,26 @@
-# == Class: awstats
+#
+# @summary Install and configure awstats
+#
+# @param config_dir_purge
+#   Default to: `false`
+#
+#   If set to `true`, unmanaged files in the configuration directory path,
+#   typically `/etc/awstats/` are purged.
+#
+# @param enable_plugins
+#   Defaults to: `[]`
+#
+#   A case insensitive list of awstats plugins to enable "support" for by
+#   installing required dependencies. The supported plugins are:
+#
+#   * decodeutfkeys
+#   * geoip
+#
+# @param owner
+#   awstats user
+#
+# @param group
+#   awstats group
 #
 class awstats (
   Boolean $config_dir_purge = false,
