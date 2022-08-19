@@ -1,7 +1,7 @@
 Puppet awstats Module
 =====================
 
-[![Build Status](https://travis-ci.org/jhoblitt/puppet-awstats.png)](https://travis-ci.org/jhoblitt/puppet-awstats)
+[![CI](https://github.com/jhoblitt/puppet-awstats/actions/workflows/ci.yml/badge.svg)](https://github.com/jhoblitt/puppet-awstats/actions/workflows/ci.yml)
 
 #### Table of Contents
 
