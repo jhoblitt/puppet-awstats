@@ -1,14 +1,14 @@
 # == Define: awstats::conf
 #
-define awstats::conf(
+define awstats::conf (
   Optional[String] $template = undef,
   Hash $options              = {},
 ) {
-  include ::awstats::params
-  require ::awstats
+  include awstats::params
+  require awstats
 
   $real_template = $template ? {
-    undef   => $::awstats::params::default_template,
+    undef   => $awstats::params::default_template,
     default => $template,
   }
 
@@ -33,16 +33,16 @@ define awstats::conf(
     'LogFile'      => '/var/log/httpd/access_log',
     'LogFormat'    => '1',
     'DirData'      => '/var/lib/awstats',
-    'SiteDomain'   => $::fqdn,
-    'HostAliases'  => "localhost 127.0.0.1 ${::hostname}",
+    'SiteDomain'   => $facts['networking']['fqdn'],
+    'HostAliases'  => "localhost 127.0.0.1 ${facts['facts['networking']['hostname']']}",
   }
 
   $conf_options = merge($default_options, $options)
 
-  file { "${::awstats::params::config_dir_path}/awstats.${title}.conf":
+  file { "${facts['awstats::params::config_dir_path']}/awstats.${title}.conf":
     ensure  => 'file',
-    owner   => $::awstats::owner,
-    group   => $::awstats::group,
+    owner   => $awstats::owner,
+    group   => $awstats::group,
     mode    => '0644',
     content => template($real_template),
   }

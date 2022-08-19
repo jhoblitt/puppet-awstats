@@ -7,7 +7,7 @@ class awstats::plugin::geoip {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  $package_name = $::osfamily ? {
+  $package_name = $facts['os']['family'] ? {
     'Debian' => 'libgeo-ip-perl',
     'RedHat' => 'perl-Geo-IP',
   }
