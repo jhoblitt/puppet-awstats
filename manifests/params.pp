@@ -1,6 +1,5 @@
-# == Class: awstats::params
 #
-# This class should be considered private
+# @api private
 #
 class awstats::params {
   case fact('os.family') {

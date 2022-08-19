@@ -1,5 +1,3 @@
-# == Define: awstats::conf
-#
 define awstats::conf (
   Optional[String] $template = undef,
   Hash $options              = {},
