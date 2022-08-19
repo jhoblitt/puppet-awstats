@@ -5,8 +5,6 @@
   "summary": "Manages the AWStats HTTP/FTP/SMTP log analyzer",
   "license": "Apache-2.0",
   "source": "https://github.com/jhoblitt/puppet-awstats",
-  "project_page": "https://github.com/jhoblitt/puppet-awstats",
-  "issues_url": "https://github.com/jhoblitt/puppet-awstats/issues",
   "operatingsystem_support": [
     { "operatingsystem": "RedHat", "operatingsystemrelease": [ "7", "8", "9" ] },
     { "operatingsystem": "CentOS", "operatingsystemrelease": [ "7", "8", "9" ] },
