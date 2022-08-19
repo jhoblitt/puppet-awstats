@@ -1,7 +1,7 @@
 {
   "name": "jhoblitt-awstats",
   "version": "0.1.0",
-  "author": "Joshua Hoblitt <jhoblitt@cpan.org>",
+  "author": "Joshua Hoblitt <josh@hoblitt.com>",
   "summary": "Manages the AWStats HTTP/FTP/SMTP log analyzer",
   "license": "Apache-2.0",
   "source": "https://github.com/jhoblitt/puppet-awstats",
