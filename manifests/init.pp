@@ -23,10 +23,10 @@
 #   awstats group
 #
 class awstats (
-  Boolean $config_dir_purge = false,
-  Array $enable_plugins     = [],
-  String $owner             = $awstats::params::owner,
-  String $group             = $awstats::params::group,
+  Boolean $config_dir_purge     = false,
+  Array[String] $enable_plugins = [],
+  String $owner                 = $awstats::params::owner,
+  String $group                 = $awstats::params::group,
 ) inherits awstats::params {
   package { $awstats::params::package_name: }
   -> file { $awstats::params::config_dir_path:
