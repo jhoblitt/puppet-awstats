@@ -139,21 +139,7 @@ describe 'awstats', :type => :class do
       end
 
       it 'should fail' do
-        should raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 5/)
-      end
-    end # el5.x
-
-    context 'el8.x' do
-      let(:facts) do
-        {
-          :osfamily                  => 'RedHat',
-          :operatingsystem           => 'RedHat',
-          :operatingsystemmajrelease => '8',
-        }
-      end
-
-      it 'should fail' do
-        should raise_error(Puppet::Error, /not supported on operatingsystemmajrelease 8/)
+        should raise_error(Puppet::Error)
       end
     end # el5.x
   end # on osfamily RedHat

@@ -8,9 +8,11 @@
   "project_page": "https://github.com/jhoblitt/puppet-awstats",
   "issues_url": "https://github.com/jhoblitt/puppet-awstats/issues",
   "operatingsystem_support": [
-    { "operatingsystem": "RedHat", "operatingsystemrelease": [ "7" ] },
-    { "operatingsystem": "CentOS", "operatingsystemrelease": [ "7" ] },
+    { "operatingsystem": "RedHat", "operatingsystemrelease": [ "7", "8", "9" ] },
+    { "operatingsystem": "CentOS", "operatingsystemrelease": [ "7", "8", "9" ] },
     { "operatingsystem": "Scientific", "operatingsystemrelease": [ "7" ] },
+    { "operatingsystem": "AlmaLinux", "operatingsystemrelease": [ "8", "9" ] },
+    { "operatingsystem": "Rocky", "operatingsystemrelease": [ "8", "9" ] },
     { "operatingsystem": "Debian", "operatingsystemrelease": [ "7", "8" ] },
     { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "16.04", "16.10" ] }
   ],
