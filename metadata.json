@@ -11,7 +11,8 @@
     { "operatingsystem": "Scientific", "operatingsystemrelease": [ "7" ] },
     { "operatingsystem": "AlmaLinux", "operatingsystemrelease": [ "8", "9" ] },
     { "operatingsystem": "Rocky", "operatingsystemrelease": [ "8", "9" ] },
-    { "operatingsystem": "Debian", "operatingsystemrelease": [ "11" ] }
+    { "operatingsystem": "Debian", "operatingsystemrelease": [ "11" ] },
+    { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "22.04" ] }
   ],
   "dependencies": [
     { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.6.0 < 9.0.0" }
