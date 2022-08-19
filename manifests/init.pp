@@ -17,11 +17,7 @@ class awstats (
   }
 
   if size($enable_plugins) > 0 {
-    $load = prefix(downcase($enable_plugins), '::awstats::plugin::')
-    include $load
-
-    anchor { 'awstats::begin': }
-    -> Class[$load]
-    -> anchor { 'awstats::end': }
+    $load = prefix(downcase($enable_plugins), 'awstats::plugin::')
+    contain $load
   }
 }

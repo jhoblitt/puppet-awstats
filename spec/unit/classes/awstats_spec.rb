@@ -87,8 +87,7 @@ describe 'awstats', type: :class do
             end
 
             it do
-              is_expected.to contain_class('awstats::plugin::decodeutfkeys').
-                that_comes_before('Anchor[awstats::end]')
+              is_expected.to contain_class('awstats::plugin::decodeutfkeys')
             end
           end
 
@@ -103,8 +102,7 @@ describe 'awstats', type: :class do
             end
 
             it do
-              is_expected.to contain_class('awstats::plugin::geoip').
-                that_comes_before('Anchor[awstats::end]')
+              is_expected.to contain_class('awstats::plugin::geoip')
             end
           end
 
