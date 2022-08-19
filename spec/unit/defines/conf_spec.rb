@@ -1,145 +1,151 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe 'awstats::conf', :type => :define do
+describe 'awstats::conf', type: :define do
   context 'on osfamily RedHat' do
     let(:facts) do
       {
-        :osfamily                  => 'RedHat',
-        :operatingsystemmajrelease => '6',
-        :fqdn                      => 'foo.example.org',
-        :hostname                  => 'foo',
+        osfamily: 'RedHat',
+        operatingsystemmajrelease: '6',
+        fqdn: 'foo.example.org',
+        hostname: 'foo',
       }
     end
     let(:title) { 'foo.example.org' }
 
     context 'default params' do
-      it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
+      it { is_expected.to contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
 
       it do
-        should contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
-          :ensure => 'file',
-          :owner  => 'root',
-          :group  => 'root',
-          :mode   => '0644'
+        is_expected.to contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
+          ensure: 'file',
+          owner: 'root',
+          group: 'root',
+          mode: '0644'
         )
       end
+
       it do
-        should contain_file('/etc/awstats/awstats.foo.example.org.conf')\
-          .with_content(<<-eos)
-DirData="/var/lib/awstats"
-HostAliases="localhost 127.0.0.1 foo"
-LogFile="/var/log/httpd/access_log"
-LogFormat=1
-SiteDomain="foo.example.org"
-eos
+        is_expected.to contain_file('/etc/awstats/awstats.foo.example.org.conf').\
+          with_content(<<~EOS)
+            DirData="/var/lib/awstats"
+            HostAliases="localhost 127.0.0.1 foo"
+            LogFile="/var/log/httpd/access_log"
+            LogFormat=1
+            SiteDomain="foo.example.org"
+          EOS
       end
-    end # default params
+    end
 
     context 'template =>' do
       context 'dne.erb' do
-        let(:params) {{ :template => 'dne.erb' }}
+        let(:params) { { template: 'dne.erb' } }
 
-        it 'should fail' do
-          should raise_error(Puppet::Error, /Could not find template/)
+        it 'fails' do
+          is_expected.to raise_error(Puppet::Error, %r{Could not find template})
         end
-      end # dne.erb
+      end
 
       context '[]' do
-        let(:params) {{ :template => [] }}
+        let(:params) { { template: [] } }
 
-        it 'should fail' do
-          should raise_error(Puppet::Error, /is not a string/)
+        it 'fails' do
+          is_expected.to raise_error(Puppet::Error, %r{is not a string})
         end
-      end # []
-    end # template =>
+      end
+    end
 
     context 'options =>' do
       context '<add new keys>' do
-        let(:params) {{ :options => { 'foo' => 1, '2' => 'bar' } }}
+        let(:params) { { options: { 'foo' => 1, '2' => 'bar' } } }
 
-        it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
+        it { is_expected.to contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
 
         it do
-          should contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
-            :ensure => 'file',
-            :owner  => 'root',
-            :group  => 'root',
-            :mode   => '0644'
+          is_expected.to contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
+            ensure: 'file',
+            owner: 'root',
+            group: 'root',
+            mode: '0644'
           )
         end
+
         it do
-          should contain_file('/etc/awstats/awstats.foo.example.org.conf')\
-            .with_content(<<-eos)
-2="bar"
-DirData="/var/lib/awstats"
-HostAliases="localhost 127.0.0.1 foo"
-LogFile="/var/log/httpd/access_log"
-LogFormat=1
-SiteDomain="foo.example.org"
-foo=1
-eos
+          is_expected.to contain_file('/etc/awstats/awstats.foo.example.org.conf').\
+            with_content(<<~EOS)
+              2="bar"
+              DirData="/var/lib/awstats"
+              HostAliases="localhost 127.0.0.1 foo"
+              LogFile="/var/log/httpd/access_log"
+              LogFormat=1
+              SiteDomain="foo.example.org"
+              foo=1
+            EOS
         end
-      end # <add new keys>
+      end
 
       context '<replace existing keys>' do
-        let(:params) {{ :options => { 'DirData' => 1, 'LogFormat' => 'bar' } }}
+        let(:params) { { options: { 'DirData' => 1, 'LogFormat' => 'bar' } } }
 
-        it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
+        it { is_expected.to contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
 
         it do
-          should contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
-            :ensure => 'file',
-            :owner  => 'root',
-            :group  => 'root',
-            :mode   => '0644'
+          is_expected.to contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
+            ensure: 'file',
+            owner: 'root',
+            group: 'root',
+            mode: '0644'
           )
         end
+
         it do
-          should contain_file('/etc/awstats/awstats.foo.example.org.conf')\
-            .with_content(<<-eos)
-DirData=1
-HostAliases="localhost 127.0.0.1 foo"
-LogFile="/var/log/httpd/access_log"
-LogFormat="bar"
-SiteDomain="foo.example.org"
-eos
+          is_expected.to contain_file('/etc/awstats/awstats.foo.example.org.conf').\
+            with_content(<<~EOS)
+              DirData=1
+              HostAliases="localhost 127.0.0.1 foo"
+              LogFile="/var/log/httpd/access_log"
+              LogFormat="bar"
+              SiteDomain="foo.example.org"
+            EOS
         end
-      end # <add new keys>
+      end
 
       context '<key value is array>' do
-        let(:params) {{ :options => { 'LoadPlugin' => ['foo', 'bar'] } }}
+        let(:params) { { options: { 'LoadPlugin' => %w[foo bar] } } }
 
-        it { should contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
+        it { is_expected.to contain_awstats__conf('foo.example.org').that_requires('Class[awstats]') }
 
         it do
-          should contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
-            :ensure => 'file',
-            :owner  => 'root',
-            :group  => 'root',
-            :mode   => '0644'
+          is_expected.to contain_file('/etc/awstats/awstats.foo.example.org.conf').with(
+            ensure: 'file',
+            owner: 'root',
+            group: 'root',
+            mode: '0644'
           )
         end
+
         it do
-          should contain_file('/etc/awstats/awstats.foo.example.org.conf')\
-            .with_content(<<-eos)
-DirData="/var/lib/awstats"
-HostAliases="localhost 127.0.0.1 foo"
-LoadPlugin="bar"
-LoadPlugin="foo"
-LogFile="/var/log/httpd/access_log"
-LogFormat=1
-SiteDomain="foo.example.org"
-eos
+          is_expected.to contain_file('/etc/awstats/awstats.foo.example.org.conf').\
+            with_content(<<~EOS)
+              DirData="/var/lib/awstats"
+              HostAliases="localhost 127.0.0.1 foo"
+              LoadPlugin="bar"
+              LoadPlugin="foo"
+              LogFile="/var/log/httpd/access_log"
+              LogFormat=1
+              SiteDomain="foo.example.org"
+            EOS
         end
-      end # <key value is array>
+      end
 
       context 'foo' do
-        let(:params) {{ :options => 'foo' }}
+        let(:params) { { options: 'foo' } }
 
-        it 'should fail' do
-          should raise_error(Puppet::Error, /is not a Hash/)
+        it 'fails' do
+          is_expected.to raise_error(Puppet::Error, %r{is not a Hash})
         end
-      end # foo
-    end # options =>
-  end # on osfamily RedHat
+      end
+    end
+  end
 end

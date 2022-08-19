@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe 'awstats', :type => :class do
-
+describe 'awstats', type: :class do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
@@ -10,145 +11,148 @@ describe 'awstats', :type => :class do
         end
 
         context 'default params' do
-          it { should contain_package('awstats') }
+          it { is_expected.to contain_package('awstats') }
 
           it do
-            should contain_file('/etc/awstats').with(
-              :ensure  => 'directory',
-              :owner   => 'root',
-              :group   => 'root',
-              :mode    => '0755',
-              :recurse => true,
-              :purge   => false
+            is_expected.to contain_file('/etc/awstats').with(
+              ensure: 'directory',
+              owner: 'root',
+              group: 'root',
+              mode: '0755',
+              recurse: true,
+              purge: false
             )
           end
-          it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
-        end # default params
+
+          it { is_expected.to contain_file('/etc/awstats').that_requires('Package[awstats]') }
+        end
 
         context 'config_dir_purge =>' do
           context 'true' do
-            let(:params) {{ :config_dir_purge => true }}
+            let(:params) { { config_dir_purge: true } }
 
-            it { should contain_package('awstats') }
+            it { is_expected.to contain_package('awstats') }
 
             it do
-              should contain_file('/etc/awstats').with(
-                :ensure  => 'directory',
-                :owner   => 'root',
-                :group   => 'root',
-                :mode    => '0755',
-                :recurse => true,
-                :purge   => true
+              is_expected.to contain_file('/etc/awstats').with(
+                ensure: 'directory',
+                owner: 'root',
+                group: 'root',
+                mode: '0755',
+                recurse: true,
+                purge: true
               )
             end
-            it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
+
+            it { is_expected.to contain_file('/etc/awstats').that_requires('Package[awstats]') }
           end
 
           context 'false' do
-            let(:params) {{ :config_dir_purge => false }}
+            let(:params) { { config_dir_purge: false } }
 
-            it { should contain_package('awstats') }
+            it { is_expected.to contain_package('awstats') }
 
             it do
-              should contain_file('/etc/awstats').with(
-                :ensure  => 'directory',
-                :owner   => 'root',
-                :group   => 'root',
-                :mode    => '0755',
-                :recurse => true,
-                :purge   => false
+              is_expected.to contain_file('/etc/awstats').with(
+                ensure: 'directory',
+                owner: 'root',
+                group: 'root',
+                mode: '0755',
+                recurse: true,
+                purge: false
               )
             end
-            it { should contain_file('/etc/awstats').that_requires('Package[awstats]') }
+
+            it { is_expected.to contain_file('/etc/awstats').that_requires('Package[awstats]') }
           end
 
           context '42' do
-            let(:params) {{ :config_dir_purge => 42 }}
+            let(:params) { { config_dir_purge: 42 } }
 
-            it 'should fail' do
-              should raise_error(Puppet::Error, /is not a boolean/)
+            it 'fails' do
+              is_expected.to raise_error(Puppet::Error, %r{is not a boolean})
             end
           end
-        end # config_dir_purge =>
+        end
 
         context 'enable_plugins =>' do
           context "[ 'decodeutfkeys' ]" do
-            let(:params) {{ :enable_plugins => [ 'decodeutfkeys' ] }}
+            let(:params) { { enable_plugins: ['decodeutfkeys'] } }
 
             case facts[:osfamily]
             when 'Debian'
-              it { should contain_package('liburi-perl') }
+              it { is_expected.to contain_package('liburi-perl') }
             when 'RedHat'
-              it { should contain_package('perl-URI') }
+              it { is_expected.to contain_package('perl-URI') }
             end
 
             it do
-              should contain_class('awstats::plugin::decodeutfkeys').
+              is_expected.to contain_class('awstats::plugin::decodeutfkeys').
                 that_comes_before('Anchor[awstats::end]')
             end
           end
 
           context "[ 'geoip' ]" do
-            let(:params) {{ :enable_plugins => [ 'geoip' ] }}
+            let(:params) { { enable_plugins: ['geoip'] } }
 
             case facts[:osfamily]
             when 'Debian'
-              it { should contain_package('libgeo-ip-perl') }
+              it { is_expected.to contain_package('libgeo-ip-perl') }
             when 'RedHat'
-              it { should contain_package('perl-Geo-IP') }
+              it { is_expected.to contain_package('perl-Geo-IP') }
             end
 
             it do
-              should contain_class('awstats::plugin::geoip').
+              is_expected.to contain_class('awstats::plugin::geoip').
                 that_comes_before('Anchor[awstats::end]')
             end
           end
 
           # check case insensitivity and multiple enable_plugins
           context "[ 'DECODEUTFKEYS', 'GEOIP' ]" do
-            let(:params) {{ :enable_plugins => [ 'DECODEUTFKEYS', 'GEOIP' ] }}
+            let(:params) { { enable_plugins: %w[DECODEUTFKEYS GEOIP] } }
 
             case facts[:osfamily]
             when 'Debian'
-              it { should contain_package('liburi-perl') }
-              it { should contain_package('libgeo-ip-perl') }
+              it { is_expected.to contain_package('liburi-perl') }
+              it { is_expected.to contain_package('libgeo-ip-perl') }
             when 'RedHat'
-              it { should contain_package('perl-URI') }
-              it { should contain_package('perl-Geo-IP') }
+              it { is_expected.to contain_package('perl-URI') }
+              it { is_expected.to contain_package('perl-Geo-IP') }
             end
           end
 
           context '42' do
-            let(:params) {{ :enable_plugins => 42 }}
+            let(:params) { { enable_plugins: 42 } }
 
-            it 'should fail' do
-              should raise_error(Puppet::Error, /is not an Array/)
+            it 'fails' do
+              is_expected.to raise_error(Puppet::Error, %r{is not an Array})
             end
           end
-        end # enable_plugins =>
+        end
       end
     end
 
     context 'el5.x' do
       let(:facts) do
         {
-          :osfamily                  => 'RedHat',
-          :operatingsystem           => 'RedHat',
-          :operatingsystemmajrelease => '5',
+          osfamily: 'RedHat',
+          operatingsystem: 'RedHat',
+          operatingsystemmajrelease: '5',
         }
       end
 
       it 'should fail' do
         should raise_error(Puppet::Error)
       end
-    end # el5.x
-  end # on osfamily RedHat
+    end
+  end
 
   context 'on osfamily Solaris' do
-    let(:facts) {{ :osfamily => 'Solaris', :operatingsystem => 'Solaris' }}
+    let(:facts) { { osfamily: 'Solaris', operatingsystem: 'Solaris' } }
 
-    it 'should fail' do
-      should raise_error Puppet::Error, /not supported on Solaris/
+    it 'fails' do
+      is_expected.to raise_error Puppet::Error, %r{not supported on Solaris}
     end
-  end # on osfamily Solaris
+  end
 end

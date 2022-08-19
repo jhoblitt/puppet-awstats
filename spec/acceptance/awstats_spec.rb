@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'awstats class' do
@@ -55,62 +57,63 @@ describe 'awstats class' do
     EOS
 
     it 'applies the manifest twice with no stderr' do
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes => true)
+      apply_manifest(pp, catch_failures: true)
+      apply_manifest(pp, catch_changes: true)
     end
   end
 
-
-  [
-    'awstats',
-    'perl-Geo-IP',
-    'perl-URI'
+  %w[
+    awstats
+    perl-Geo-IP
+    perl-URI
   ].each do |package_name|
     describe package(package_name) do
-      it { should be_installed }
+      it { is_expected.to be_installed }
     end
   end
 
   describe file('/etc/awstats') do
-    it { should be_directory }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
-    it { should be_mode 755 }
+    it { is_expected.to be_directory }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into 'root' }
+    it { is_expected.to be_mode 755 }
   end
 
   describe file('/etc/awstats/awstats.defaults.example.org.conf') do
-    it { should be_file }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
-    it { should be_mode 644 }
+    it { is_expected.to be_file }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into 'root' }
+    it { is_expected.to be_mode 644 }
+
     its(:content) do
-      should match <<-eos
-DirData="/var/lib/awstats"
-HostAliases="localhost 127.0.0.1 #{hostname}"
-LogFile="/var/log/httpd/access_log"
-LogFormat=1
-SiteDomain="#{fqdn}"
-      eos
+      is_expected.to match <<~EOS
+        DirData="/var/lib/awstats"
+        HostAliases="localhost 127.0.0.1 #{hostname}"
+        LogFile="/var/log/httpd/access_log"
+        LogFormat=1
+        SiteDomain="#{fqdn}"
+      EOS
     end
   end
 
   describe file('/etc/awstats/awstats.tweaked.example.org.conf') do
-    it { should be_file }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
-    it { should be_mode 644 }
+    it { is_expected.to be_file }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into 'root' }
+    it { is_expected.to be_mode 644 }
+
     its(:content) do
-      should match <<-eos
-AllowFullYearView=2
-DNSLookup=1
-DirData="/var/lib/awstats"
-HostAliases="localhost 127.0.0.1 #{hostname}"
-LoadPlugin="decodeutfkeys"
-LoadPlugin="geoip"
-LogFile="/var/log/httpd/access_log"
-LogFormat=1
-SiteDomain="tweaked.example.org"
-      eos
+      is_expected.to match <<~EOS
+        AllowFullYearView=2
+        DNSLookup=1
+        DirData="/var/lib/awstats"
+        HostAliases="localhost 127.0.0.1 #{hostname}"
+        LoadPlugin="decodeutfkeys"
+        LoadPlugin="geoip"
+        LogFile="/var/log/httpd/access_log"
+        LogFormat=1
+        SiteDomain="tweaked.example.org"
+      EOS
     end
   end
 end
