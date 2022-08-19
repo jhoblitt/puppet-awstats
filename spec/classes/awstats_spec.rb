@@ -118,20 +118,29 @@ describe 'awstats', type: :class do
     context 'el5.x' do
       let(:facts) do
         {
-          osfamily: 'RedHat',
-          operatingsystem: 'RedHat',
-          operatingsystemmajrelease: '5',
+          os: {
+            'family' => 'RedHat',
+            'release' => {
+              'major' => '5',
+            },
+          },
         }
       end
 
       it 'fails' do
-        is_expected.to raise_error(Puppet::Error)
+        is_expected.to raise_error(Puppet::Error, %r{not supported on operatingsystemmajrelease 5})
       end
     end
   end
 
   context 'on osfamily Solaris' do
-    let(:facts) { { osfamily: 'Solaris', operatingsystem: 'Solaris' } }
+    let(:facts) do
+      {
+        os: {
+          'family' => 'Solaris',
+        },
+      }
+    end
 
     it 'fails' do
       is_expected.to raise_error Puppet::Error, %r{not supported on Solaris}
