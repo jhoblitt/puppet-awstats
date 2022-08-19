@@ -86,7 +86,7 @@ define awstats::conf (
     'LogFile'      => '/var/log/httpd/access_log',
     'LogFormat'    => '1',
     'DirData'      => '/var/lib/awstats',
-    'SiteDomain'   => fact('networking.fqdn'),
+    'SiteDomain'   => $title,
     'HostAliases'  => "localhost 127.0.0.1 ${fact('networking.hostname')}",
   }
 
