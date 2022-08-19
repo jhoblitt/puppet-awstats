@@ -9,7 +9,6 @@ group :test do
   gem 'simplecov-console',                          :require => false
   gem 'puppet_metadata', '~> 1.0',                  :require => false
   gem 'puppet-lint-legacy_facts-check',             :require => false
-  gem 'puppet-lint-no_erb_template-check',          :require => false
   gem 'puppet-lint-package_ensure-check',           :require => false
   gem 'puppet-lint-resource_reference_syntax',      :require => false
   gem 'puppet-lint-strict_indent-check',            :require => false
