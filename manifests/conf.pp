@@ -86,13 +86,13 @@ define awstats::conf (
     'LogFile'      => '/var/log/httpd/access_log',
     'LogFormat'    => '1',
     'DirData'      => '/var/lib/awstats',
-    'SiteDomain'   => $facts['networking']['fqdn'],
-    'HostAliases'  => "localhost 127.0.0.1 ${facts['facts['networking']['hostname']']}",
+    'SiteDomain'   => fact('networking.fqdn'),
+    'HostAliases'  => "localhost 127.0.0.1 ${fact('networking.hostname')}",
   }
 
   $conf_options = merge($default_options, $options)
 
-  file { "${facts['awstats::params::config_dir_path']}/awstats.${title}.conf":
+  file { "${awstats::params::config_dir_path}/awstats.${title}.conf":
     ensure  => 'file',
     owner   => $awstats::owner,
     group   => $awstats::group,

@@ -4,7 +4,7 @@
 class awstats::plugin::geoip {
   assert_private()
 
-  $package_name = $facts['os']['family'] ? {
+  $package_name = fact('os.family') ? {
     'Debian' => 'libgeo-ip-perl',
     'RedHat' => 'perl-Geo-IP',
   }
