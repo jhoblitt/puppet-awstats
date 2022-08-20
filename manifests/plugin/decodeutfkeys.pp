@@ -1,18 +1,9 @@
-# == Class: awstats::plugin::decodeutfkeys
 #
-# This class should be considered private
+# @api private
 #
-class awstats::plugin::decodeutfkeys {
-  if $caller_module_name != $module_name {
-    fail("Use of private class ${name} by ${caller_module_name}")
-  }
-
-  # the Encode lib is bundled with core perl on el6
-  # the epel6 awstats package has a dep on perl-URI so this class is
-  # essentially a no-op
-  $package_name = $::osfamily ? {
-    'Debian' => 'liburi-perl',
-    'RedHat' => 'perl-URI',
-  }
-  ensure_packages($package_name)
+class awstats::plugin::decodeutfkeys (
+  Array[String[1]] $packages,
+) {
+  assert_private()
+  ensure_packages($packages)
 }

@@ -1,20 +1,22 @@
 {
   "name": "jhoblitt-awstats",
   "version": "0.1.0",
-  "author": "Joshua Hoblitt <jhoblitt@cpan.org>",
+  "author": "Joshua Hoblitt <josh@hoblitt.com>",
   "summary": "Manages the AWStats HTTP/FTP/SMTP log analyzer",
   "license": "Apache-2.0",
   "source": "https://github.com/jhoblitt/puppet-awstats",
-  "project_page": "https://github.com/jhoblitt/puppet-awstats",
-  "issues_url": "https://github.com/jhoblitt/puppet-awstats/issues",
   "operatingsystem_support": [
-    { "operatingsystem": "RedHat", "operatingsystemrelease": [ "6", "7" ] },
-    { "operatingsystem": "CentOS", "operatingsystemrelease": [ "6", "7" ] },
-    { "operatingsystem": "Scientific", "operatingsystemrelease": [ "6", "7" ] },
-    { "operatingsystem": "Debian", "operatingsystemrelease": [ "7", "8" ] },
-    { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "16.04", "16.10" ] }
+    { "operatingsystem": "RedHat", "operatingsystemrelease": [ "7", "8", "9" ] },
+    { "operatingsystem": "CentOS", "operatingsystemrelease": [ "7", "8", "9" ] },
+    { "operatingsystem": "Scientific", "operatingsystemrelease": [ "7" ] },
+    { "operatingsystem": "AlmaLinux", "operatingsystemrelease": [ "8", "9" ] },
+    { "operatingsystem": "Rocky", "operatingsystemrelease": [ "8", "9" ] },
+    { "operatingsystem": "Debian", "operatingsystemrelease": [ "11" ] },
+    { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "22.04" ] }
   ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.6.0 < 5.0.0" }
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.6.0 < 9.0.0" }
+  ],
+  "requirements": [ { "name": "puppet", "version_requirement": ">= 6.0.0 < 8.0.0" }
   ]
 }

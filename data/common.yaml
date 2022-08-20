@@ -1,0 +1,4 @@
+---
+awstats::owner: "root"
+awstats::group: "root"
+awstats::config_dir_path: "/etc/awstats"

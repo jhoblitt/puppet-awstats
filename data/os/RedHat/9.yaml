@@ -1,0 +1,2 @@
+---
+awstats::plugin::geoip::packages: ['perl-GeoIP2']

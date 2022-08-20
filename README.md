@@ -1,32 +1,27 @@
-Puppet awstats Module
-=====================
+# Puppet awstats Module
 
-[![Build Status](https://travis-ci.org/jhoblitt/puppet-awstats.png)](https://travis-ci.org/jhoblitt/puppet-awstats)
+[![CI](https://github.com/jhoblitt/puppet-awstats/actions/workflows/ci.yml/badge.svg)](https://github.com/jhoblitt/puppet-awstats/actions/workflows/ci.yml)
 
-#### Table of Contents
+## Table of Contents
 
 1. [Overview](#overview)
-2. [Description](#description)
-3. [Usage](#usage)
-    * [Examples](#examples)
-    * [Classes](#classes)
-    * [Defines](#defines)
-4. [Limitations](#limitations)
-    * [Tested Platforms](#tested-platforms)
-5. [Versioning](#versioning)
-6. [Support](#support)
-7. [Contributing](#contributing)
-8. [See Also](#see-also)
+1. [Description](#description)
+1. [Usage](#usage)
+  * [Examples](#examples)
+  * [Classes](#classes)
+  * [Defines](#defines)
+1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+1. [Limitations](#limitations)
+1. [Versioning](#versioning)
+1. [Support](#support)
+1. [Contributing](#contributing)
+1. [See Also](#see-also)
 
-
-Overview
---------
+## Overview
 
 Manages the AWStats HTTP/FTP/SMTP log analyzer
 
-
-Description
------------
+## Description
 
 "AWStats is a free powerful and featureful tool that generates advanced web,
 streaming, ftp or mail server statistics, graphically." --
@@ -43,9 +38,7 @@ understandable as historically logs have had `root` ownership.  A future
 release of this module may provide for AWStats to be invoked as a non-`root`
 user.
 
-
-Usage
------
+## Usage
 
 ### Examples
 
@@ -94,7 +87,7 @@ class { '::awstats':
 Class['::awstats'] -> Class['::apache']
 ```
 
-#### Local `apache` log
+#### Local `apache` log -- example 1
 
 ```puppet
 # apache log
@@ -111,7 +104,7 @@ awstats::conf { 'www.example.org':
 }
 ```
 
-#### Local `apache` log
+#### Local `apache` log -- example 2
 
 Defaults to processing `/var/log/httpd/access_log`.
 
@@ -173,7 +166,6 @@ awstats::conf { 'ftp.example.org':
 ```
 
 #### Remote `pureftpd` log via `ssh`
-
 
 ```puppet
 # pureftp log
@@ -274,60 +266,48 @@ key name will be created. Eg.
 Would result in the following options in the configuration file.  Note that the
 order is sorted.
 
-```
+```text
 LoadPlugin="bar"
 LoadPlugin="foo"
 ```
 
-Limitations
------------
+## Reference
+
+See [REFERENCE](REFERENCE.md)
+
+## Limitations
 
 This module has been developed around the awstats version 7 package from
-`EPEL6`.  A bit unfortunately, that package runs `awstats.pl` from `cron` as the
+`EPEL6`.  A bit unfortunately, that package runs `awstats.pl` from `cron` as
 root.  Rather than fighting the package, that decision has been left in place
 but may be revised in a future version of this module.
 
-### Tested Platforms
-
-* el6
-* el7
-
-
-Versioning
-----------
+## Versioning
 
 This module is versioned according to the [Semantic Versioning
 2.0.0](http://semver.org/spec/v2.0.0.html) specification.
 
-
-Support
--------
+## Support
 
 Please log tickets and issues at
 [github](https://github.com/jhoblitt/puppet-awstats/issues)
 
-
-Contributing
-------------
+## Contributing
 
 1. Fork it on github
-2. Make a local clone of your fork
-3. Create a topic branch.  Eg, `feature/mousetrap`
-4. Make/commit changes
-    * Commit messages should be in [imperative tense](http://git-scm.com/book/ch5-2.html)
-    * Check that linter warnings or errors are not introduced - `bundle exec rake lint`
-    * Check that `Rspec-puppet` unit tests are not broken and coverage is added for new
-      features - `bundle exec rake spec`
-    * Documentation of API/features is updated as appropriate in the README
-    * If present, `beaker` acceptance tests should be run and potentially
-      updated - `bundle exec rake beaker`
-5. When the feature is complete, rebase / squash the branch history as
-   necessary to remove "fix typo", "oops", "whitespace" and other trivial commits
-6. Push the topic branch to github
-7. Open a Pull Request (PR) from the *topic branch* onto parent repo's `master` branch
+1. Make a local clone of your fork
+1. Create a topic branch.  Eg, `feature/mousetrap`
+1. Make/commit changes
+  * Commit messages should be in [imperative tense](http://git-scm.com/book/ch5-2.html)
+  * Check that linter warnings or errors are not introduced - `bundle exec rake lint`
+  * Check that `Rspec-puppet` unit tests are not broken and coverage is added for new features - `bundle exec rake spec`
+  * Documentation of API/features is updated as appropriate in the README
+  * If present, `beaker` acceptance tests should be run and potentially updated - `bundle exec rake beaker`
+1. When the feature is complete, rebase / squash the branch history as necessary to remove "fix typo", "oops", "whitespace" and other trivial commits
+1. Push the topic branch to github
+1. Open a Pull Request (PR) from the *topic branch* onto parent repo's `master` branch
 
+## See Also
 
-See Also
---------
 * [www.awstats.org](http://www.awstats.org/)
 * [`puppetlabs/apache`](https://forge.puppetlabs.com/puppetlabs/apache)
