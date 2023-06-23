@@ -6,34 +6,12 @@ if fact('os.family') == 'RedHat' {
     '8': {
       class { 'yum':
         managed_repos => ['PowerTools'],
-        repos         => {
-          'PowerTools' => {
-            'enabled'    => true,
-            'descr'      => 'CentOS-$releasever - PowerTools',
-            'baseurl'    => 'https://vault.centos.org/$contentdir/$releasever/PowerTools/$basearch/os/',
-            'mirrorlist' => absent,
-            'gpgcheck'   => true,
-            'gpgkey'     => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial',
-            'target'     => '/etc/yum.repos.d/CentOS-Linux-PowerTools.repo',
-          },
-        },
         before        => Class['awstats'],
       }
     }
     '9': {
       class { 'yum':
         managed_repos => ['crb'],
-        repos         => {
-          'crb' => {
-            'enabled'         => true,
-            'descr'           => 'CentOS Stream $releasever - Code Ready Builder',
-            'metalink'        => 'https://mirrors.centos.org/metalink?repo=centos-crb-$stream&arch=$basearch&protocol=https,http',
-            'metadata_expire' => '6h',
-            'gpgcheck'        => true,
-            'gpgkey'          => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial',
-            'target'          => '/etc/yum.repos.d/centos.repo',
-          },
-        },
         before        => Class['awstats'],
       }
     }
