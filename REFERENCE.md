@@ -17,7 +17,7 @@
 
 ### Defined types
 
-* [`awstats::conf`](#awstatsconf): manage awstats config file
+* [`awstats::conf`](#awstats--conf): manage awstats config file
 
 ## Classes
 
@@ -29,40 +29,40 @@ Install and configure awstats
 
 The following parameters are available in the `awstats` class:
 
-* [`owner`](#owner)
-* [`group`](#group)
-* [`config_dir_path`](#config_dir_path)
-* [`packages`](#packages)
-* [`config_dir_purge`](#config_dir_purge)
-* [`enable_plugins`](#enable_plugins)
+* [`owner`](#-awstats--owner)
+* [`group`](#-awstats--group)
+* [`config_dir_path`](#-awstats--config_dir_path)
+* [`packages`](#-awstats--packages)
+* [`config_dir_purge`](#-awstats--config_dir_purge)
+* [`enable_plugins`](#-awstats--enable_plugins)
 
-##### <a name="owner"></a>`owner`
+##### <a name="-awstats--owner"></a>`owner`
 
 Data type: `String`
 
 awstats role user.
 
-##### <a name="group"></a>`group`
+##### <a name="-awstats--group"></a>`group`
 
 Data type: `String`
 
 awstats role group.
 
-##### <a name="config_dir_path"></a>`config_dir_path`
+##### <a name="-awstats--config_dir_path"></a>`config_dir_path`
 
 Data type: `Stdlib::Absolutepath`
 
 Path of the awstats configuration directory.
 
-##### <a name="packages"></a>`packages`
+##### <a name="-awstats--packages"></a>`packages`
 
 Data type: `Optional[Array[String[1]]]`
 
 List of packages to install.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="config_dir_purge"></a>`config_dir_purge`
+##### <a name="-awstats--config_dir_purge"></a>`config_dir_purge`
 
 Data type: `Boolean`
 
@@ -71,9 +71,9 @@ Default to: `false`
 If set to `true`, unmanaged files in the configuration directory path,
 typically `/etc/awstats/` are purged.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="enable_plugins"></a>`enable_plugins`
+##### <a name="-awstats--enable_plugins"></a>`enable_plugins`
 
 Data type: `Array[String]`
 
@@ -89,7 +89,7 @@ Default value: `[]`
 
 ## Defined types
 
-### <a name="awstatsconf"></a>`awstats::conf`
+### <a name="awstats--conf"></a>`awstats::conf`
 
 ```puppet
 # defaults
@@ -130,10 +130,10 @@ LoadPlugin="foo"
 
 The following parameters are available in the `awstats::conf` defined type:
 
-* [`template`](#template)
-* [`options`](#options)
+* [`template`](#-awstats--conf--template)
+* [`options`](#-awstats--conf--options)
 
-##### <a name="template"></a>`template`
+##### <a name="-awstats--conf--template"></a>`template`
 
 Data type: `Optional[String]`
 
@@ -144,9 +144,9 @@ file.
 
 A value of `undef` is equivalent to `${module_name}/awstats.conf.erb`.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="options"></a>`options`
+##### <a name="-awstats--conf--options"></a>`options`
 
 Data type: `Hash`
 
